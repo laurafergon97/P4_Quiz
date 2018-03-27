@@ -90,18 +90,19 @@ exports.testCmd = (socket,rl, id) => {
             if(answer === resp_quizz){
                 log(socket,'Su respuesta es correcta.');
                 biglog(socket,'Correcta','green');
+                rl.prompt();
             }else{
                 log(socket,'Su respuesta es incorrecta.');
                 biglog(socket,'Incorrecta','red');
+                rl.prompt();
             }
         });
     })
     .catch(error=>{
         errorlog(socket, error.message);
-    })    
-    .then(()=>{
         rl.prompt();
-    });
+    })    
+  
 };
 
 
@@ -136,11 +137,11 @@ exports.testCmd = (socket,rl, id) => {
             .then(answer=> {
                 if(answer.toLowerCase().trim()=== quiz.answer.toLowerCase().trim()){
                     score++;
-                    console.log(socket,`Respuesta correcta - Lleva ${score} aciertos`);
+                    log(socket,`Respuesta correcta - Lleva ${score} aciertos`);
                     return playOne();
 
                 }else{
-                    console.log(socket,`Respuesta incorrecta. Fin del examen. Aciertos: ${score}`);
+                    log(socket,`Respuesta incorrecta. Fin del examen. Aciertos: ${score}`);
                 }
 
             })
